@@ -2,26 +2,24 @@
 const express = require('express')
 const exphbs  = require('express-handlebars')
 
-
 // Hata mesaji icin onerilen yuklemeler
 const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
-
-
-
 
 const app = express()
 const port = 3000
 const hostname = '127.0.0.1'
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-
+const fileUpload = require('express-fileupload')
 
 mongoose.connect('mongodb://127.0.0.1/nodeblog_db', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
+
+app.use(fileUpload())
 
 app.use(express.static('public'))
 
