@@ -41,6 +41,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+
+// // Deneme middleware
+// const myMiddleware = (req, res, next) => {
+//   console.log('BENIM ADIM MSY')
+//   next()
+// }
+// app.use('/', myMiddleware)
+
+
 // routes/main e sayfa yonlendirmeleri yapildi
 const main = require('./routes/main')
 const posts = require('./routes/posts')
