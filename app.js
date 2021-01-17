@@ -16,7 +16,8 @@ const generateDate = require('./helpers/generateDate').generateDate
 
 mongoose.connect('mongodb://127.0.0.1/nodeblog_db', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true //Bunun ne ise yaradigini hocada bilmiyor Ders20  Min16:00
 })
 
 app.use(fileUpload())
@@ -37,11 +38,14 @@ app.use(bodyParser.json())
 
 // routes/main e sayfa yonlendirmeleri yapildi
 const main = require('./routes/main')
-const posts = require('./routes/posts');
+const posts = require('./routes/posts')
+const users = require('./routes/users')
 
 // const moment = require('moment');
 app.use('/', main)
 app.use('/posts', posts)
+app.use('/users', users)
+
 
 app.listen(port, hostname, () => {
   console.log(`Example app listening at http://${hostname}:${port}`)
