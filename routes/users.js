@@ -22,6 +22,7 @@ router.post('/login',(req, res) => {
         if (user) {
             if(user.password == password) {
                 // USER SESSION
+                req.session.userId = user._id
                 res.redirect('/')
             } else {
                 res.redirect('/users/login')

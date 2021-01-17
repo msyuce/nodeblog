@@ -4,6 +4,7 @@ const Post = require('../models/Post')
 
 
 router.get('/',(req, res) => {
+    console.log(req.session)
 res.render('site/index')
 })
 

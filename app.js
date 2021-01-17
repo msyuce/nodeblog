@@ -1,6 +1,5 @@
 const express = require('express')
 const exphbs  = require('express-handlebars')
-
 // Hata mesaji icin onerilen yuklemeler
 const Handlebars = require('handlebars')
 // const expressHandlebars = require('express-handlebars')
@@ -13,12 +12,23 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 const generateDate = require('./helpers/generateDate').generateDate
+const expressSession = require('express-session')
+const connectMongo = require('connect-mongo')
 
 mongoose.connect('mongodb://127.0.0.1/nodeblog_db', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true //Bunun ne ise yaradigini hocada bilmiyor Ders20  Min16:00
 })
+
+const mongoStore = connectMongo(expressSession)
+
+app.use(expressSession({
+  secret: 'testotesto',
+  resave: false,
+  saveUninitialized: true,
+  store: new mongoStore({ mongooseConnection: mongoose.connection})
+}))
 
 app.use(fileUpload())
 
