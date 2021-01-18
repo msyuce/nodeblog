@@ -17,17 +17,18 @@ router.get('/:id',(req, res) => {
 })
 
 router.post('/test',(req, res) => {
-    
-    let post_image = req.files.post_image
-
+     let post_image = req.files.post_image
     post_image.mv(path.resolve(__dirname, '../public/img/postimages', post_image.name))
-
     Post.create({
         ...req.body,
         post_image:`/img/postimages/${post_image.name}`
-    })
-    
-    res.redirect('/')
+    }, )
+// Bildirim kutusu
+    req.session.sessionFlash = {
+        type: 'alert alert-success',
+        message: 'Postunuz basarili bir sekilde olusturuldu'
+    }
+    res.redirect('/blog') // site icindeki blog.handlebars
 })
 
 module.exports = router

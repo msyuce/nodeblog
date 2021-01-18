@@ -30,6 +30,13 @@ app.use(expressSession({
   store: new mongoStore({ mongooseConnection: mongoose.connection})
 }))
 
+// Flash Message icin Middleware olusturuldu
+app.use((req, res, next) => {
+  res.locals.sessionFlash = req.session.sessionFlash
+  delete req.session.sessionFlash
+  next()
+})
+
 app.use(fileUpload())
 
 app.use(express.static('public'))

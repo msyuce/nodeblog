@@ -12,8 +12,14 @@
 		<div class="container">
 			<div class="row">
 				<main id="main" class="col-md-8">
-					<div class="row">
+<!-- Bildirim Kutusu -->					
+					{{#if sessionFlash.message}}
+						<div class="{{sessionFlash.type}}">
+							{{sessionFlash.message}}
+						</div>
+					{{/if}}
 
+					<div class="row">
 						{{#each posts}}
 						<div class="col-md-6">
 							<div class="blog">

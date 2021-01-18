@@ -8,7 +8,12 @@ router.get('/register',(req, res) => {
 
 router.post('/register', (req, res) => {
     User.create(req.body, (error, user) => {
-        res.redirect('/')
+// Bildirim kutusu
+    req.session.sessionFlash = {
+        type: 'alert alert-danger',
+        message: 'Kullanici basarili bir sekilde olusturuldu'
+    }
+        res.redirect('/users/login')
     })
 })
 
@@ -21,7 +26,7 @@ router.post('/login',(req, res) => {
     User.findOne({email}, (error, user) => {
         if (user) {
             if(user.password == password) {
-                // USER SESSION
+// User Session
                 req.session.userId = user._id
                 res.redirect('/')
             } else {
