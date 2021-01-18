@@ -1,9 +1,9 @@
 const express = require('express')
-const exphbs  = require('express-handlebars')
+const exphbs = require('express-handlebars')
 // Hata mesaji icin onerilen yuklemeler
 const Handlebars = require('handlebars')
 // const expressHandlebars = require('express-handlebars')
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 
 const app = express()
 const port = 3000
@@ -27,7 +27,7 @@ app.use(expressSession({
   secret: 'testotesto',
   resave: false,
   saveUninitialized: true,
-  store: new mongoStore({ mongooseConnection: mongoose.connection})
+  store: new mongoStore({ mongooseConnection: mongoose.connection })
 }))
 
 // Flash Message icin Middleware olusturuldu
@@ -41,17 +41,34 @@ app.use(fileUpload())
 
 app.use(express.static('public'))
 
-app.engine('handlebars', exphbs({helpers:{generateDate:generateDate},
-    handlebars: allowInsecurePrototypeAccess(Handlebars)
-    }
+app.engine('handlebars', exphbs({
+  helpers: { generateDate: generateDate },
+  handlebars: allowInsecurePrototypeAccess(Handlebars)
+}
 ))
 app.set('view engine', 'handlebars')
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
- 
+
 // parse application/json
 app.use(bodyParser.json())
+
+// Display Link Middleware duzenlemesi
+app.use((req, res, next) => {
+  const { userId } = req.session
+  if (userId) {
+    res.locals = {
+      displayLink: true
+    }
+  }
+  else {
+    res.locals = {
+      displayLink: false
+    }
+  }
+  next()
+})
 
 // routes/main e sayfa yonlendirmeleri yapildi
 const main = require('./routes/main')
