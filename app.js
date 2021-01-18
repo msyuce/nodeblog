@@ -74,12 +74,13 @@ app.use((req, res, next) => {
 const main = require('./routes/main')
 const posts = require('./routes/posts')
 const users = require('./routes/users')
+const admin = require('./routes/admin/index')
 
 // const moment = require('moment');
 app.use('/', main)
 app.use('/posts', posts)
 app.use('/users', users)
-
+app.use('/admin', admin)
 
 app.listen(port, hostname, () => {
   console.log(`Example app listening at http://${hostname}:${port}`)
