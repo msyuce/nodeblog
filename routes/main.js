@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 // })
 
 router.get('/blog', (req, res) => {
-    Post.find({}).then(posts => {
+    Post.find({}).sort({ $natural: -1 }).then(posts => {
         res.render('site/blog', { posts: posts })
     })
 })

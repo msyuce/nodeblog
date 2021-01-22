@@ -2,7 +2,7 @@
     INSIDE HERO SECTION Section
 ============================-->
 <section class="page-image page-image-about md-padding">
-	<h1 class="text-white text-center">CATEGORIES/h1>
+	<h1 class="text-white text-center">CATEGORIES</h1>
 </section>
 
 <!--==========================
@@ -48,7 +48,13 @@
 						<tr>
 							<td>{{id}}</td>
 							<td>{{name}}</td>
-							<td>delete</td>
+							<td>
+								<form action="/admin/categories/{{id}}?_method=DELETE" method="POST">
+									<input type="hidden" name="_method" value="DELETE">
+									<button type="submit" class="btn btn-danger">DELETE</button>
+								</form>
+
+							</td>
 						</tr>
 						{{/each}}
 					</tbody>
