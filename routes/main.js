@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Post = require('../models/Post')
-
+const Category = require('../models/Category')
 
 router.get('/', (req, res) => {
     console.log(req.session)
@@ -14,7 +14,9 @@ router.get('/', (req, res) => {
 
 router.get('/blog', (req, res) => {
     Post.find({}).sort({ $natural: -1 }).then(posts => {
-        res.render('site/blog', { posts: posts })
+        Category.find({}).then(categories => {
+            res.render('site/blog', { posts: posts, categories: categories })
+        })
     })
 })
 
